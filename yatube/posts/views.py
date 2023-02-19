@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PostForm
@@ -18,8 +17,8 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    post_list = group.posts.all() # Спасибо! Вспомнил что в ревью прошлого 
-    #спринта был комментарий. Повторение мать ученья. Удалю потом
+    post_list = group.posts.all()  # Спасибо! Вспомнил что в ревью прошлого
+    # спринта был комментарий. Повторение мать ученья. Удалю потом
     # По идее здесь тоже можно применить select_related, так?
     page_obj = paginations(request, post_list)
     context = {
@@ -54,14 +53,12 @@ def post_detail(request, post_id):
 def post_create(request):
     form = PostForm(request.POST or None)
     if form.is_valid():
-        #form.instance.author = request.user
-        #form.save()
         post = form.save(commit=False)
         post.author = request.user
         post.save()
         return redirect('posts:profile', request.user)
     context = {
-    'form': form
+        'form': form,
     }
     return render(request, 'posts/create_post.html', context)
 
