@@ -7,6 +7,14 @@
 {% block content %}
       <div class="row">
         <aside class="col-12 col-md-3">
+          {% comment "" %}
+          Вот заготовка. Но если я ее разкомичу, а то что ниже до aside за комичу, то слетает дизайн
+          Да последовательность в профайле: Автор, дата публикаци, Текс поста, подробная информация и все записи группы
+          (если она есть). А здесь другая. Как поступить?
+          Для группы сделал
+          {% include 'posts/includes/article.html' %}
+          {% endcomment %}
+          
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               Дата публикации: {{ post.pub_date|date:"d E Y" }}
@@ -33,6 +41,7 @@
               </a>
             </li>
           </ul>
+          
         </aside>
         <article class="col-12 col-md-9">
           <p>

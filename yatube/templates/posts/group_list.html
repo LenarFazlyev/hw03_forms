@@ -11,6 +11,8 @@
       Записи группы: {{ group.description|linebreaks }}
     </p>
     {% for post in page_obj %}
+    {% include 'posts/includes/article.html' %}
+    {% comment "" %}
       <article>
         <ul>
           <li>
@@ -23,7 +25,8 @@
         </ul>
         <p>{{ post.text|linebreaks }}</p>
         <a href={% url 'posts:post_detail' post.pk %} >подробная информация </a>
-      </article>      
+      </article> 
+    {% endcomment %}     
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
     {% include 'posts/includes/paginator.html' %}
