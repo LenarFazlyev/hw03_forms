@@ -7,7 +7,8 @@ from .utils import paginations
 
 
 def index(request):
-    post_list = Post.objects.select_related('author').all()
+    post_list = Post.objects.select_related('author'
+                                            ).select_related('group').all()
     page_obj = paginations(request, post_list)
     context = {
         'page_obj': page_obj,
@@ -17,9 +18,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    post_list = group.posts.all()  # Спасибо! Вспомнил что в ревью прошлого
-    # спринта был комментарий. Повторение мать ученья. Удалю потом
-    # По идее здесь тоже можно применить select_related, так?
+    post_list = group.posts.select_related('author').all()
     page_obj = paginations(request, post_list)
     context = {
         'page_obj': page_obj,
@@ -30,7 +29,7 @@ def group_posts(request, slug):
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    posts = Post.objects.select_related('author').filter(author=author)
+    posts = author.posts.select_related('group')
     page_obj = paginations(request, posts)
     posts_count = posts.count()
     context = {

@@ -1,9 +1,9 @@
-{% with request.resolver_match.view_name as view_name %}  
+{% comment "" %}{% with request.resolver_match.view_name as view_name %}  {% endcomment %}
 <article>
   <ul>
     <li>
       Автор: {{ post.author.get_full_name }}
-      {% if view_name != 'posts:profile' %}
+      {% if not show_author %}
       <a href={% url 'posts:profile' post.author %}>все посты пользователя</a>
       {% endif %}
     </li>
@@ -13,7 +13,7 @@
   </ul>
   <p>{{ post.text|linebreaks|truncatewords:30 }}</p>
   <a href={% url 'posts:post_detail' post.pk %} >подробная информация </a></br> 
-  {% if view_name != 'posts:group_posts' %}
+  {% if not show_group %}
     {% if post.group %}              
         <a href={% url 'posts:group_posts' post.group.slug %}>все записи группы</a>
     {% else %}
@@ -22,4 +22,4 @@
   {% endif %}
 
 </article>
-{% endwith %}
+{% comment "" %}{% endwith %}{% endcomment %}
