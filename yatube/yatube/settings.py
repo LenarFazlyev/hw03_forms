@@ -7,7 +7,12 @@ SECRET_KEY = '&963&mz)aq)i@!e659i(8pjr(ep7k=@t@eggwwq6dy*i&s^rgh'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    'testserver',
+]
 
 
 INSTALLED_APPS = [
@@ -92,6 +97,7 @@ USE_L10N = True
 USE_TZ = True
 
 LIMITS_IN_PAGE = 10
+POST_SYMBOLS = 15
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)

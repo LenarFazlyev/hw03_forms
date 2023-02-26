@@ -7,8 +7,8 @@ from .utils import paginations
 
 
 def index(request):
-    post_list = Post.objects.select_related('author'
-                                            ).select_related('group').all()
+    post_list = Post.objects.select_related(
+        'author').select_related('group').all()
     page_obj = paginations(request, post_list)
     context = {
         'page_obj': page_obj,

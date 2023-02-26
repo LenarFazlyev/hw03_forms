@@ -5,26 +5,26 @@ User = get_user_model()
 
 
 class Group(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, verbose_name='Подсайт')
-    description = models.TextField(verbose_name='Описание')
+    title = models.CharField('Группа', max_length=200)
+    slug = models.SlugField('Подсайт', unique=True)
+    description = models.TextField('Описание')
 
     class Meta:
         verbose_name = 'группу'
         verbose_name_plural = 'Группы'
 
     def __str__(self) -> str:
-        return f'{self.title}'
+        return self.title
 
 
 class Post(models.Model):
     text = models.TextField(
-        verbose_name='Текст поста',
+        'Текст поста',
         help_text='Введите текст поста'
     )
     pub_date = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Дата публикации'
+        'Дата публикации',
+        auto_now_add=True
     )
     author = models.ForeignKey(
         User,
@@ -48,4 +48,4 @@ class Post(models.Model):
         verbose_name_plural = 'Посты'
 
     def __str__(self):
-        return self.text[:30]
+        return self.text[:15]
